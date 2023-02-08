@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:web_admin/web_admin/modelDB/cluesModel.dart';
-import 'package:web_admin/web_admin/newFloder/common/app_colors.dart';
+import 'package:web_admin/web_admin/componants/app_colors.dart';
 
 class CluesUpdateData extends StatefulWidget {
   const CluesUpdateData({super.key, this.id});
@@ -38,7 +38,7 @@ class _CluesUpdateDataState extends State<CluesUpdateData> {
   final TextEditingController _point = TextEditingController();
 
   CollectionReference cluesDB =
-      FirebaseFirestore.instance.collection("cluesdata");
+      FirebaseFirestore.instance.collection("cluestype");
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class _CluesUpdateDataState extends State<CluesUpdateData> {
               margin: const EdgeInsets.all(50),
               child: StreamBuilder(
                   stream: FirebaseFirestore.instance
-                      .collection('cluesdata')
+                      .collection('cluestype')
                       .snapshots(),
                   builder:
                       (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -89,11 +89,11 @@ class _CluesUpdateDataState extends State<CluesUpdateData> {
                           items: snapshot.data!.docs
                               .map((DocumentSnapshot document) {
                             return DropdownMenuItem(
-                                value: document['Type'],
+                                value: document['laws'],
                                 child: Text(
                                   // ignore: prefer_interpolation_to_compose_strings
                                   'คดีความผิดตามกฎหมายว่าด้วย' +
-                                      document['Type'],
+                                      document['laws'],
                                 ));
                           }).toList(),
                         ),

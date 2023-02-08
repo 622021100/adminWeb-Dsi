@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:web_admin/web_admin/newFloder/common/app_colors.dart';
+import 'package:web_admin/web_admin/componants/app_colors.dart';
 
 class RecruitemDatawidget extends StatefulWidget {
   // final cluesdata cluess;

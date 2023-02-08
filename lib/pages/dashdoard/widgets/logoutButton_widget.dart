@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:web_admin/web_admin/login/loginPage.dart';
-import 'package:web_admin/web_admin/newFloder/common/app_colors.dart';
+import 'package:web_admin/web_admin/componants/app_colors.dart';
 
 class LogoutButton extends StatelessWidget {
   LogoutButton({super.key});

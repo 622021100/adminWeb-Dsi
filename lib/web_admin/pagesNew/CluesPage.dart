@@ -1,12 +1,14 @@
 // ignore_for_file: avoid_print
 
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:web_admin/web_admin/modelDB/cluesModel.dart';
-import 'package:web_admin/web_admin/newFloder/common/app_colors.dart';
-import 'package:web_admin/web_admin/newFloder/pages/dashdoard/widgets/header_widgets.dart';
-import 'package:web_admin/web_admin/newFloder/pages/dashdoard/widgets/header_widgets1.dart';
+import 'package:web_admin/web_admin/componants/app_colors.dart';
+import 'package:web_admin/pages/dashdoard/widgets/header_widgets1.dart';
 import 'package:xen_popup_card/xen_card.dart';
 
 class CluesPage extends StatefulWidget {
@@ -52,6 +54,46 @@ class _CluesPageState extends State<CluesPage> {
     readData();
   }
 
+  Widget _listTypr(String? type) {
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('cluestype').snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return Container();
+          } else {
+            return DropdownButtonFormField(
+              decoration: InputDecoration(
+                hintText: 'ประเภทฐานความผิด',
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(22),
+                ),
+              ),
+              isDense: true,
+              iconDisabledColor: AppColor.kBlueGrayLite,
+              iconEnabledColor: AppColor.kNavy,
+              icon: const FaIcon(FontAwesomeIcons.circleChevronDown),
+              onChanged: (selectType) {
+                print(json.encode(selectType));
+                setState(() {
+                });
+              },
+              value: type,
+              items: snapshot.data!.docs.map((DocumentSnapshot document) {
+                return DropdownMenuItem(
+                    value: document['laws'],
+                    child: Text(
+                      // ignore: prefer_interpolation_to_compose_strings
+                      'คดีความผิดตามกฎหมายว่าด้วย' + document['laws'],
+                    ));
+              }).toList(),
+            );
+          }
+        });
+  }
+
   Future<void> readData() async {
     await Firebase.initializeApp().then((value) async {
       FirebaseFirestore.instance
@@ -73,23 +115,44 @@ class _CluesPageState extends State<CluesPage> {
     });
   }
 
-  Future<void> update() async {
-    return FirebaseFirestore.instance
-        .collection('cluesdata')
-        .doc(widget.id)
-        .update({
-          'Type': _type.text,
-          'Date': _date.text,
-          'Time': _detail.text,
-          'Detaill': _detail.text,
-          'Location': _location.text,
-          'Name': _name.text,
-          'Phone': _phone.text,
-          'Point': _point.text,
-        })
-        .then((value) => Navigator.pop(context))
-        .catchError((error) => print("Failed to update user: $error"));
-  }
+  // Future<void> callData() async {
+  //   await Firebase.initializeApp().then((value) async {
+  //     FirebaseFirestore.instance
+  //         .collection('cluesdata')
+  //         .orderBy('Date')
+  //         .snapshots()
+  //         .listen((event) {
+  //       int index = 0;
+  //       for (var snapshots in event.docs) {
+  //         Map<String, dynamic> map = snapshots.data();
+  //         cluesdata model = cluesdata.fromMap(map);
+  //         cluess.add(model);
+  //         setState(() {
+  //           widgets.add(createWidget(model, index));
+  //         });
+  //         index++;
+  //       }
+  //     });
+  //   });
+  // }
+
+  // Future<void> update() async {
+  //   return FirebaseFirestore.instance
+  //       .collection('cluesdata')
+  //       .doc(widget.id)
+  //       .update({
+  //         'Type': _type.text,
+  //         'Date': _date.text,
+  //         'Time': _time.text,
+  //         'Detaill': _detail.text,
+  //         'Location': _location.text,
+  //         'Name': _name.text,
+  //         'Phone': _phone.text,
+  //         'Point': _point.text,
+  //       })
+  //       .then((value) => Navigator.pop(context))
+  //       .catchError((error) => print("Failed to update user: $error"));
+  // }
 
   Widget createWidget(cluesdata model, int index) =>
       // Center(
@@ -173,8 +236,10 @@ class _CluesPageState extends State<CluesPage> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(32),
                               ),
+                              label: const Text('ประเภทคดี'),
                             ),
-                          )
+                          ),
+                          _listTypr(model.Type),
                         ],
                       ),
                     )),
@@ -188,7 +253,7 @@ class _CluesPageState extends State<CluesPage> {
             },
             child: SizedBox(
               width: double.infinity,
-              height: 115,
+              height: 95,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -227,7 +292,7 @@ class _CluesPageState extends State<CluesPage> {
                       ],
                     ),
                   ),
-                  const Spacer(),
+                  // const Spacer(),
                   // Row(
                   //   children: [
                   //     const Spacer(),

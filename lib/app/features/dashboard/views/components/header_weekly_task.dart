@@ -37,8 +37,8 @@ class _HeaderWeeklyTask extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {},
       style: ElevatedButton.styleFrom(
-        primary: Colors.grey[100],
-        onPrimary: Colors.grey[850],
+        foregroundColor: Colors.grey[850],
+        backgroundColor: Colors.grey[100],
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:web_admin/web_admin/clues.dart';
-import 'package:web_admin/web_admin/newFloder/common/app_colors.dart';
-import 'package:web_admin/web_admin/newFloder/pages/dashdoard/widgets/header_widgets.dart';
-import 'package:web_admin/web_admin/newFloder/pages/dashdoard/widgets/notificationCard_widgets.dart';
+import 'package:web_admin/web_admin/pagesNew/CluesPage.dart';
+import 'package:web_admin/web_admin/componants/app_colors.dart';
+import 'package:web_admin/pages/dashdoard/widgets/header_widgets.dart';
+import 'package:web_admin/pages/dashdoard/widgets/notificationCard_widgets.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});

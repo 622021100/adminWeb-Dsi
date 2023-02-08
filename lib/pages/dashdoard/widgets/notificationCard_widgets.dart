@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:web_admin/web_admin/newFloder/common/app_colors.dart';
+import 'package:web_admin/web_admin/componants/app_colors.dart';
 
 class NotificationCardWidget extends StatelessWidget {
   const NotificationCardWidget({super.key});

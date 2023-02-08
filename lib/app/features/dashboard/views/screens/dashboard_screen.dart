@@ -165,7 +165,7 @@ class DashboardScreen extends GetView<DashboardController> {
           padding: const EdgeInsets.all(kSpacing),
           child: Text(
             "2021 Teamwork lisence",
-            style: Theme.of(context).textTheme.caption,
+            style: Theme.of(context).textTheme.bodySmall,
           ),
         ),
       ],

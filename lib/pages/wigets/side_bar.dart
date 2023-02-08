@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:web_admin/web_admin/clues.dart';
+import 'package:web_admin/web_admin/pagesNew/CluesPage.dart';
 import 'package:web_admin/web_admin/login/loginPage.dart';
-import 'package:web_admin/web_admin/newFloder/common/app_colors.dart';
+import 'package:web_admin/web_admin/componants/app_colors.dart';
 
 class SidebarPage extends StatefulWidget {
   const SidebarPage({super.key});

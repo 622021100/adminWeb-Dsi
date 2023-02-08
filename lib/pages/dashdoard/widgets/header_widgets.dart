@@ -1,17 +1,19 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:web_admin/web_admin/componants/constant.dart';
-import 'package:web_admin/web_admin/newFloder/common/app_colors.dart';
-import 'package:web_admin/web_admin/newFloder/pages/dashdoard/widgets/logoutButton_widget.dart';
+import 'package:web_admin/web_admin/componants/app_colors.dart';
+import 'package:web_admin/pages/dashdoard/widgets/logoutButton_widget.dart';
 
-class HeaderWidgets1 extends StatefulWidget {
-  const HeaderWidgets1({super.key});
+class HeaderWidgets extends StatefulWidget {
+  const HeaderWidgets({super.key});
 
   @override
-  State<HeaderWidgets1> createState() => _HeaderWidgets1State();
+  State<HeaderWidgets> createState() => _HeaderWidgetsState();
 }
 
-class _HeaderWidgets1State extends State<HeaderWidgets1> {
+class _HeaderWidgetsState extends State<HeaderWidgets> {
   bool _folded = true;
+  final auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -25,26 +27,23 @@ class _HeaderWidgets1State extends State<HeaderWidgets1> {
             top: 35,
           ),
           child: Text(
-            'ข้อมูลการแจ้งเบาะแสทางการข่าว',
+            'WELCOME',
             style: TextStyle(
-                fontSize: 25, color: Colors.black, fontWeight: FontWeight.bold),
+              fontSize: 25,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         const Spacer(),
-        //  Container(
-        //   margin: const EdgeInsets.only(top: 35),
-        //   child: animetedSearchBar(),
-        // ),
         Container(
           margin: const EdgeInsets.only(
-            top: 35,
             right: 35,
             left: 15,
+            top: 35,
           ),
           child: LogoutButton(),
         ),
-        // const Spacer(),
-        // animetedSearchBar(),
       ],
     );
   }

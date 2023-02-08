@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:web_admin/Routes.dart';
 import 'package:web_admin/app/config/themes/app_theme.dart';
+import 'package:web_admin/mainHome.dart';
 import 'package:web_admin/web_admin/login/loginPage.dart';
-import 'package:web_admin/web_admin/newFloder/pages/dashdoard/widgets/search/search_widgets.dart';
+import 'package:web_admin/pages/dashdoard/widgets/search/search_widgets.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,7 +51,8 @@ class _MyAppState extends State<MyApp> {
           textTheme: GoogleFonts.promptTextTheme(Theme.of(context).textTheme)),
       // initialRoute: '/',
       // onGenerateRoute: Flurorouter.router.generator,
-      home: const LoginPage(),
+      home: const MainHome(),
+      // home: const LoginPage(),
     );
   }
 }

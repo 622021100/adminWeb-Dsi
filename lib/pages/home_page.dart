@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:web_admin/web_admin/clues.dart';
-import 'package:web_admin/web_admin/clues_listData.dart';
-import 'package:web_admin/web_admin/newFloder/common/app_colors.dart';
-import 'package:web_admin/web_admin/newFloder/pages/wigets/side_bar.dart';
+import 'package:web_admin/web_admin/componants/app_colors.dart';
+import 'package:web_admin/pages/wigets/side_bar.dart';
 
 class HomePageNew extends StatefulWidget {
   const HomePageNew({super.key});
@@ -25,10 +23,6 @@ class _HomePageNewState extends State<HomePageNew> {
               child: SidebarPage(),
             ),
             //main body part
-            Expanded(
-              flex: 5,
-              child: CluesListData(),
-            ),
           ],
         ),
       ),

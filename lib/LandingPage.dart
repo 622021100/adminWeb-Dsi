@@ -1,14 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:web_admin/pagesNew/HelpPage.dart';
-import 'package:web_admin/pagesNew/HomePage.dart';
-import 'package:web_admin/pagesNew/SettingsPage.dart';
-import 'package:web_admin/web_admin/clues.dart';
-import 'package:web_admin/web_admin/clues_listData.dart';
-import 'package:web_admin/web_admin/newFloder/common/app_colors.dart';
+import 'package:web_admin/web_admin/pagesNew/HelpPage.dart';
+import 'package:web_admin/web_admin/pagesNew/HomePage.dart';
+import 'package:web_admin/web_admin/pagesNew/SettingsPage.dart';
+import 'package:web_admin/web_admin/pagesNew/CluesPage.dart';
+import 'package:web_admin/web_admin/componants/app_colors.dart';
 
-import 'web_admin/newFloder/pages/dashdoard/widgets/logoutButton_widget.dart';
+import 'pages/dashdoard/widgets/logoutButton_widget.dart';
 
 class LandingPage extends StatefulWidget {
   final String page;

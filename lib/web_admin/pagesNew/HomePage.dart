@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:web_admin/web_admin/newFloder/common/app_colors.dart';
-import 'package:web_admin/web_admin/newFloder/pages/dashdoard/widgets/header_widgets.dart';
+import 'package:web_admin/web_admin/componants/app_colors.dart';
+import 'package:web_admin/pages/dashdoard/widgets/header_widgets.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -185,7 +185,7 @@ class HomePage extends StatelessWidget {
                     ),
                     Expanded(
                       child: Container(
-                        margin: EdgeInsets.only(top: 25),
+                        margin: const EdgeInsets.only(top: 25),
                         decoration: BoxDecoration(
                             color: AppColor.kBlue1,
                             borderRadius: BorderRadius.circular(32)),

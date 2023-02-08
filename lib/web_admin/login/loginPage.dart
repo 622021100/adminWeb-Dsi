@@ -6,8 +6,8 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:web_admin/mainHome.dart';
 import 'package:web_admin/web_admin/componants/constant.dart';
 import 'package:web_admin/web_admin/login/profile.dart';
-import 'package:web_admin/web_admin/newFloder/common/app_colors.dart';
-import 'package:web_admin/web_admin/newFloder/pages/home_page.dart';
+import 'package:web_admin/web_admin/componants/app_colors.dart';
+import 'package:web_admin/pages/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
