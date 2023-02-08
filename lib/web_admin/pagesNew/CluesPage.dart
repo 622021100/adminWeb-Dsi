@@ -1,14 +1,11 @@
-// ignore_for_file: avoid_print
-
 import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:web_admin/web_admin/modelDB/cluesModel.dart';
 import 'package:web_admin/web_admin/componants/app_colors.dart';
-import 'package:web_admin/pages/dashdoard/widgets/header_widgets1.dart';
+import 'package:web_admin/web_admin/widgets/header/header_widgets1.dart';
 import 'package:xen_popup_card/xen_card.dart';
 
 class CluesPage extends StatefulWidget {
@@ -77,8 +74,7 @@ class _CluesPageState extends State<CluesPage> {
               icon: const FaIcon(FontAwesomeIcons.circleChevronDown),
               onChanged: (selectType) {
                 print(json.encode(selectType));
-                setState(() {
-                });
+                setState(() {});
               },
               value: type,
               items: snapshot.data!.docs.map((DocumentSnapshot document) {

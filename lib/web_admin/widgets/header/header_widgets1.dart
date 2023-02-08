@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:web_admin/web_admin/componants/constant.dart';
 import 'package:web_admin/web_admin/componants/app_colors.dart';
-import 'package:web_admin/pages/dashdoard/widgets/logoutButton_widget.dart';
+import 'package:web_admin/web_admin/componants/constant.dart';
+import 'package:web_admin/web_admin/widgets/logoutButton_widget.dart';
 
 class HeaderWidgets1 extends StatefulWidget {
   const HeaderWidgets1({super.key});

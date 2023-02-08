@@ -6,8 +6,8 @@ import 'package:web_admin/web_admin/pagesNew/HomePage.dart';
 import 'package:web_admin/web_admin/pagesNew/SettingsPage.dart';
 import 'package:web_admin/web_admin/pagesNew/CluesPage.dart';
 import 'package:web_admin/web_admin/componants/app_colors.dart';
+import 'web_admin/widgets/logoutButton_widget.dart';
 
-import 'pages/dashdoard/widgets/logoutButton_widget.dart';
 
 class LandingPage extends StatefulWidget {
   final String page;

@@ -2,11 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:web_admin/Routes.dart';
 import 'package:web_admin/app/config/themes/app_theme.dart';
 import 'package:web_admin/mainHome.dart';
-import 'package:web_admin/web_admin/login/loginPage.dart';
-import 'package:web_admin/pages/dashdoard/widgets/search/search_widgets.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();

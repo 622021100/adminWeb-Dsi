@@ -4,9 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:web_admin/web_admin/pagesNew/DropdownType.dart';
-import 'package:web_admin/web_admin/modelDB/cluesModel.dart';
 import 'package:web_admin/web_admin/componants/app_colors.dart';
-import 'package:web_admin/pages/dashdoard/widgets/header_widgets1.dart';
+import 'package:web_admin/web_admin/modelDB/cluesModel.dart';
+import 'package:web_admin/web_admin/widgets/header/header_widgets1.dart';
 import 'package:xen_popup_card/xen_card.dart';
 
 class CluesListData extends StatefulWidget {

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:web_admin/web_admin/componants/app_colors.dart';
 
 class SettingsPage extends StatelessWidget {
