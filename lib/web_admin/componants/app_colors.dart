@@ -36,6 +36,7 @@ class AppColor {
   static const kYellow1 = Color(0xFFFF9F29);
 
   static const kBlue1 = Color(0xFF5B8FB9);
-
-
+  static const kYellow2 = Color(0xFFFAFCD6);
+  static const kNavy3 = Color(0xFF4F7097);
+  static const kGray1 = Color(0xFFEBF0F6);
 }

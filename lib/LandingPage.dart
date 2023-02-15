@@ -1,13 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:web_admin/web_admin/pagesNew/HelpPage.dart';
+import 'package:web_admin/web_admin/pagesNew/ClueslistPage.dart';
 import 'package:web_admin/web_admin/pagesNew/HomePage.dart';
-import 'package:web_admin/web_admin/pagesNew/SettingsPage.dart';
-import 'package:web_admin/web_admin/pagesNew/CluesPage.dart';
 import 'package:web_admin/web_admin/componants/app_colors.dart';
 import 'web_admin/widgets/logoutButton_widget.dart';
-
 
 class LandingPage extends StatefulWidget {
   final String page;
@@ -21,15 +18,11 @@ class LandingPage extends StatefulWidget {
 List<String> pages = [
   'home',
   'data',
-  'settings',
-  'help',
 ];
 
 List<IconData> Icons = [
-  FontAwesomeIcons.house,
   FontAwesomeIcons.solidFolder,
-  FontAwesomeIcons.gear,
-  FontAwesomeIcons.circleInfo,
+  FontAwesomeIcons.house,
 ];
 
 class _LandingPageState extends State<LandingPage> {
@@ -45,9 +38,6 @@ class _LandingPageState extends State<LandingPage> {
             child: Container(
               decoration: const BoxDecoration(
                 color: Colors.white,
-                // boxShadow: [
-                //   BoxShadow(blurRadius: 25),
-                // ],
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(32),
                   bottomRight: Radius.circular(32),
@@ -55,7 +45,6 @@ class _LandingPageState extends State<LandingPage> {
               ),
               width: MediaQuery.of(context).size.width * 0.8,
               child: Column(
-                // mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Column(
@@ -88,7 +77,7 @@ class _LandingPageState extends State<LandingPage> {
                                 context, "/main/${pages[Icons.indexOf(e)]}");
                           } else {
                             Navigator.pushNamed(
-                                context, "/main/${pages[Icons.indexOf(e)]}");
+                                context, "/main/extra/${pages[Icons.indexOf(e)]}");
                           }
                         },
                       );
@@ -125,10 +114,10 @@ class _LandingPageState extends State<LandingPage> {
             child: IndexedStack(
               index: pages.indexOf(widget.page),
               children: const [
+                Clueslistdata(),
                 HomePage(),
-                CluesPage(),
-                SettingsPage(),
-                HelpPage(),
+                // SettingsPage(),
+                // HelpPage(),
               ],
             ),
           )
@@ -174,7 +163,7 @@ class _NavItemState extends State<NavItem> {
         ),
         duration: const Duration(milliseconds: 375),
         width: double.infinity,
-        height: 90,
+        height: 100,
         child: Icon(
           widget.icon,
           color: widget.selected ? Colors.white : AppColor.kNavy,

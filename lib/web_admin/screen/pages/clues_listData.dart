@@ -27,7 +27,9 @@ class _CluesListDataState extends State<CluesListData> {
       Name: "",
       Phone: "",
       Detaill: "",
-      Point: "");
+      Point: "",
+      Address: '',
+      Note: '');
 
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
   final _editFormkey = GlobalKey<FormState>();

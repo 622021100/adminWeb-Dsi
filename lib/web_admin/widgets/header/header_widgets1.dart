@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:web_admin/web_admin/componants/app_colors.dart';
 import 'package:web_admin/web_admin/componants/constant.dart';
-import 'package:web_admin/web_admin/widgets/logoutButton_widget.dart';
 
 class HeaderWidgets1 extends StatefulWidget {
   const HeaderWidgets1({super.key});
@@ -15,36 +14,23 @@ class _HeaderWidgets1State extends State<HeaderWidgets1> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        const Padding(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        Padding(
           padding: EdgeInsets.only(
-            left: 35,
-            // bottom: 25,
+            left: 55,
             top: 35,
           ),
           child: Text(
             'ข้อมูลการแจ้งเบาะแสทางการข่าว',
             style: TextStyle(
-                fontSize: 25, color: Colors.black, fontWeight: FontWeight.bold),
+              fontSize: 30,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
-        const Spacer(),
-        //  Container(
-        //   margin: const EdgeInsets.only(top: 35),
-        //   child: animetedSearchBar(),
-        // ),
-        Container(
-          margin: const EdgeInsets.only(
-            top: 35,
-            right: 35,
-            left: 15,
-          ),
-          child: LogoutButton(),
-        ),
-        // const Spacer(),
-        // animetedSearchBar(),
       ],
     );
   }

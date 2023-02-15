@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:web_admin/app/config/themes/app_theme.dart';
 import 'package:web_admin/mainHome.dart';
+import 'package:web_admin/web_admin/login/loginPage.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,8 +47,6 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.basic.copyWith(
           textTheme: GoogleFonts.promptTextTheme(Theme.of(context).textTheme)),
-      // initialRoute: '/',
-      // onGenerateRoute: Flurorouter.router.generator,
       home: const MainHome(),
       // home: const LoginPage(),
     );

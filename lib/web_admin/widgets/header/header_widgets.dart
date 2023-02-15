@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:web_admin/web_admin/componants/constant.dart';
 import 'package:web_admin/web_admin/componants/app_colors.dart';
-import 'package:web_admin/web_admin/widgets/logoutButton_widget.dart';
 
 class HeaderWidgets extends StatefulWidget {
   const HeaderWidgets({super.key});
@@ -19,30 +18,20 @@ class _HeaderWidgetsState extends State<HeaderWidgets> {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        const Padding(
+      children: const [
+        Padding(
           padding: EdgeInsets.only(
-            left: 35,
-            // bottom: 25,
+            left: 60,
             top: 35,
           ),
           child: Text(
-            'WELCOME',
+            'ยินดีต้อนรับ',
             style: TextStyle(
-              fontSize: 25,
+              fontSize: 30,
               color: Colors.black,
               fontWeight: FontWeight.bold,
             ),
           ),
-        ),
-        const Spacer(),
-        Container(
-          margin: const EdgeInsets.only(
-            right: 35,
-            left: 15,
-            top: 35,
-          ),
-          child: LogoutButton(),
         ),
       ],
     );
