@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "mainappdsi"
-  }
+    "maincluesnew": "maincluesnew",
+    "default": "maincluesnew"
+  },
+  "targets": {},
+  "etags": {}
 }
