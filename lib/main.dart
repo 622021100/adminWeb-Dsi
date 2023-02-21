@@ -1,10 +1,10 @@
+import 'dart:html';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:web_admin/app/config/themes/app_theme.dart';
+import 'package:web_admin/login/loginPage.dart';
 import 'package:web_admin/mainHome.dart';
-import 'package:web_admin/web_admin/login/loginPage.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,48 +34,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   Flurorouter.setupRouter();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Admin | NewsClues',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.basic.copyWith(
-          textTheme: GoogleFonts.promptTextTheme(Theme.of(context).textTheme)),
-      home: const MainHome(),
-      // home: const LoginPage(),
+      theme: ThemeData(fontFamily: GoogleFonts.prompt().fontFamily),
+      // home: const MainHome(),
+      home: const LoginPage(),
     );
   }
 }
-
-
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       title: 'Admin | News Clues',
-//       theme: AppTheme.basic.copyWith(
-//           textTheme: GoogleFonts.promptTextTheme(Theme.of(context).textTheme)),
-//       initialRoute: '/',
-//       // scrollBehavior: CustomScrollBehaviour(),
-//       home: HomePageNew(),
-//     );
-//   }
-// }
-
-// class CustomScrollBehaviour extends MaterialScrollBehavior {
-//   @override
-//   Set<PointerDeviceKind> get dragDevices => {
-//         PointerDeviceKind.touch,
-//         PointerDeviceKind.mouse,
-//       };
-// }

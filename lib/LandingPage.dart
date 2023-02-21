@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:web_admin/web_admin/pagesNew/ClueslistPage.dart';
-import 'package:web_admin/web_admin/pagesNew/HomePage.dart';
-import 'package:web_admin/web_admin/componants/app_colors.dart';
-import 'web_admin/widgets/logoutButton_widget.dart';
+import 'package:web_admin/componants/app_colors.dart';
+import 'package:web_admin/pagesNew/ClueslistPage.dart';
+import 'package:web_admin/pagesNew/HomePage.dart';
+import 'package:web_admin/widgets/logoutButton_widget.dart';
+
 
 class LandingPage extends StatefulWidget {
   final String page;
@@ -21,8 +22,8 @@ List<String> pages = [
 ];
 
 List<IconData> Icons = [
-  FontAwesomeIcons.solidFolder,
   FontAwesomeIcons.house,
+  FontAwesomeIcons.listUl,
 ];
 
 class _LandingPageState extends State<LandingPage> {
@@ -31,17 +32,17 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.kAppbar,
+      backgroundColor: AppColor.nWhite,
       body: Row(
         children: [
           Expanded(
             child: Container(
               decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(32),
-                  bottomRight: Radius.circular(32),
-                ),
+                color: AppColor.nBlue,
+                // borderRadius: BorderRadius.only(
+                //   topRight: Radius.circular(32),
+                //   bottomRight: Radius.circular(32),
+                // ),
               ),
               width: MediaQuery.of(context).size.width * 0.8,
               child: Column(
@@ -51,19 +52,20 @@ class _LandingPageState extends State<LandingPage> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(
-                          top: 25,
+                          top: 35,
                           right: 25,
                           left: 25,
+                          bottom: 45,
                         ),
                         child: Image.asset(
-                          'assets/images/logo3-1.png',
-                          scale: 30,
+                          'assets/images/A.png',
+                          scale: 10,
                           fit: BoxFit.fill,
                         ),
                       ),
                     ],
                   ),
-                  const Spacer(),
+                  // const Spacer(),
                   Column(
                     // mainAxisAlignment: MainAxisAlignment.start,
                     children: Icons.map((e) {
@@ -77,34 +79,33 @@ class _LandingPageState extends State<LandingPage> {
                                 context, "/main/${pages[Icons.indexOf(e)]}");
                           } else {
                             Navigator.pushNamed(
-                                context, "/main/extra/${pages[Icons.indexOf(e)]}");
+                                context, "/main/${pages[Icons.indexOf(e)]}");
                           }
                         },
                       );
                     }).toList(),
                   ),
-                  const Spacer(),
-                  Container(
-                    margin: const EdgeInsets.only(
-                      left: 35,
-                      right: 35,
-                      bottom: 5,
-                    ),
-                    child: LogoutButton(),
+                  const SizedBox(
+                    height: 215,
                   ),
-                  const Spacer(),
                   Container(
                     height: 150,
                     decoration: const BoxDecoration(
-                      // color: AppColor.kNavy,
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(32),
-                      ),
                       image: DecorationImage(
-                          image: AssetImage('assets/images/dec4.png'),
+                          image: AssetImage('assets/images/444444.png'),
                           fit: BoxFit.cover),
                     ),
-                  )
+                  ),
+                  const Spacer(),
+                  Container(
+                    margin: const EdgeInsets.only(
+                      left: 15,
+                      right: 15,
+                      bottom: 35,
+                    ),
+                    child: LogoutButton(),
+                  ),
+                  // const Spacer(),
                 ],
               ),
             ),
@@ -114,8 +115,8 @@ class _LandingPageState extends State<LandingPage> {
             child: IndexedStack(
               index: pages.indexOf(widget.page),
               children: const [
-                Clueslistdata(),
                 HomePage(),
+                Clueslistdata(),
                 // SettingsPage(),
                 // HelpPage(),
               ],
@@ -159,14 +160,14 @@ class _NavItemState extends State<NavItem> {
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(22),
-          color: widget.selected ? AppColor.kNavy : Colors.white,
+          color: widget.selected ? AppColor.nWhite : AppColor.nBlue,
         ),
         duration: const Duration(milliseconds: 375),
         width: double.infinity,
         height: 100,
         child: Icon(
           widget.icon,
-          color: widget.selected ? Colors.white : AppColor.kNavy,
+          color: widget.selected ? AppColor.nBlue : AppColor.nWhite,
         ),
       ),
     );

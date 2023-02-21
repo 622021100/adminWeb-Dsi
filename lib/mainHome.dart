@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:web_admin/Routes.dart';
-import 'package:web_admin/app/config/themes/app_theme.dart';
 
 class MainHome extends StatefulWidget {
   const MainHome({super.key});
@@ -23,9 +21,8 @@ class _MainHomeState extends State<MainHome> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-        theme: AppTheme.basic.copyWith(
-          textTheme: GoogleFonts.promptTextTheme(Theme.of(context).textTheme)),
-      initialRoute: '/',
+      theme: ThemeData(fontFamily: GoogleFonts.prompt().fontFamily),
+      initialRoute: "/",
       onGenerateRoute: Flurorouter.router.generator,
     );
   }
