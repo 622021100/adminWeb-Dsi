@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Admin | NewsClues',
+      title: 'Admin | BohsaeKhaw',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: GoogleFonts.prompt().fontFamily),
       // home: const MainHome(),
