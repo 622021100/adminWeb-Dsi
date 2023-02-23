@@ -41,7 +41,7 @@ class LogoutButton extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(22))),
                           onPressed: () {
                             auth.signOut().then((value) {
-                              Navigator.pushReplacement(context,
+                              Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
                                 return const LoginPage();
                               }));

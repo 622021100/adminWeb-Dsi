@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:web_admin/Routes.dart';
 import 'package:web_admin/login/loginPage.dart';
 import 'package:web_admin/mainHome.dart';
 
@@ -34,6 +35,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    Flurorouter.setupRouter();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
