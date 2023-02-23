@@ -3,10 +3,8 @@ import 'dart:html';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:web_admin/componants/app_colors.dart';
-import 'package:web_admin/modelDB/cluesdataModel.dart';
 import 'package:web_admin/modelDB/cluestypeModel.dart';
 import 'package:web_admin/pagesNew/CluesdetailPage.dart';
 import 'package:web_admin/widgets/header/header_widgets1.dart';
@@ -19,13 +17,6 @@ class Clueslistdata extends StatefulWidget {
 }
 
 class _ClueslistdataState extends State<Clueslistdata> {
-  Future<void> _copyToClipboardTypes() async {
-    await Clipboard.setData(ClipboardData(text: _cluestypes.text));
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text('คัดลอก'),
-    ));
-  }
-
   cluestype types = cluestype(laws: '');
 
   final _formKey = GlobalKey<FormState>();
@@ -34,7 +25,7 @@ class _ClueslistdataState extends State<Clueslistdata> {
 
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
-  CollectionReference clues =
+  CollectionReference cluestypes =
       FirebaseFirestore.instance.collection('cluestype');
 
   @override
@@ -110,21 +101,6 @@ class _ClueslistdataState extends State<Clueslistdata> {
                                               ),
                                             ),
                                           ),
-                                          const VerticalDivider(
-                                            thickness: 5,
-                                            color: AppColor.nWhite,
-                                          ),
-                                          Expanded(
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: const [
-                                                Text('ลบข้อมูล')
-                                              ],
-                                            ),
-                                          )
                                         ],
                                       ),
                                     ),
@@ -146,7 +122,7 @@ class _ClueslistdataState extends State<Clueslistdata> {
                                             child: Material(
                                               borderRadius:
                                                   BorderRadius.circular(22),
-                                              color: AppColor.nGreyLite,
+                                              color: AppColor.nBlue.withOpacity(0.1),
                                               child: InkWell(
                                                 highlightColor: AppColor.nBlack
                                                     .withOpacity(0.2),
@@ -183,50 +159,35 @@ class _ClueslistdataState extends State<Clueslistdata> {
                                 margin: const EdgeInsets.only(
                                     left: 25, top: 25, bottom: 25),
                                 decoration: BoxDecoration(
-                                  color: AppColor.nBlue,
-                                  borderRadius: BorderRadius.circular(22),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(15),
-                                  child: StreamBuilder(
-                                    stream: FirebaseFirestore.instance
-                                        .collection("cluestype")
-                                        .orderBy('laws', descending: true)
-                                        .snapshots(),
-                                    builder: (context,
-                                        AsyncSnapshot<QuerySnapshot> snapshot) {
-                                      if (!snapshot.hasData) {
-                                        return const Center(
-                                          child: CircularProgressIndicator(),
-                                        );
-                                      } else {
-                                        return ListView(
-                                          children: snapshot.data!.docs
-                                              .map((document) {
-                                            return Container(
-                                              margin: const EdgeInsets.all(10),
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(22),
-                                                color: Colors.white,
-                                              ),
-                                              child: Column(
-                                                children: [
-                                                  // cluestypes(context)
-                                                  ListTile(
-                                                    title: Text(
-                                                      "ความผิดเกี่ยวกับ" +
-                                                          document["laws"],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          }).toList(),
-                                        );
-                                      }
-                                    },
-                                  ),
+                                    color: AppColor.nBlue,
+                                    borderRadius: BorderRadius.circular(22)),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const Spacer(),
+                                    const Text(
+                                      'ส่วนวิเคราะห์ข้อมูลอาชญากรรมและการข่าว',
+                                      style: TextStyle(
+                                        color: AppColor.nWhite,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    const Text(
+                                      'กองเทคโนโลยีและศูนย์ข้อมูลการตรวจสอบ',
+                                      style: TextStyle(
+                                        color: AppColor.nWhite,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 25),
+                                      child:
+                                          Image.asset('assets/images/dec6.png'),
+                                    )
+                                  ],
                                 ),
                               ),
                             )
@@ -240,25 +201,6 @@ class _ClueslistdataState extends State<Clueslistdata> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Padding cluestypes(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 5),
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.8,
-        child: TextField(
-          controller: _cluestypes,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            icon: IconButton(
-              onPressed: _copyToClipboardTypes,
-              icon: const FaIcon(FontAwesomeIcons.copy),
-            ),
-          ),
-        ),
       ),
     );
   }
@@ -293,7 +235,7 @@ class _ClueslistdataState extends State<Clueslistdata> {
                                 width: 5,
                               ),
                               Text(
-                                "คดีความผิดตาม" + document["Type"],
+                                "ความผิดเกี่ยวกับ" + document["Type"],
                                 style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,

@@ -53,7 +53,7 @@ class _DetailsPageState extends State<DetailsPage> {
   final TextEditingController _type = TextEditingController();
   final TextEditingController _location = TextEditingController();
   final TextEditingController _address = TextEditingController();
-  
+
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
   CollectionReference clues =
@@ -82,45 +82,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     child: Row(
                       children: [
                         Expanded(
-                          child: Container(
-                            decoration: const BoxDecoration(
-                                color: AppColor.nBlue,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(22),
-                                  bottomLeft: Radius.circular(22),
-                                )),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                const Spacer(),
-                                Image.asset(
-                                  'assets/images/A.png',
-                                  scale: 10,
-                                ),
-                                const Spacer(),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
-                                    Text(
-                                      'รายละเอียดเบาะแส',
-                                      style: TextStyle(
-                                        color: AppColor.nWhite,
-                                        fontSize: 35,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const Spacer(),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25),
-                                  child: Image.asset('assets/images/dec6.png'),
-                                )
-                              ],
-                            ),
-                          ),
+                          child: typList(),
                         ),
                         Expanded(
                           flex: 2,
@@ -142,7 +104,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                 children: [
                                   header(),
                                   Container(
-                                    margin: const EdgeInsets.only(top: 20),
+                                    margin: const EdgeInsets.only(top: 15),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
@@ -281,10 +243,58 @@ class _DetailsPageState extends State<DetailsPage> {
     );
   }
 
+  Container typList() {
+    return Container(
+      decoration: const BoxDecoration(
+        color: AppColor.nBlue,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(22),
+          bottomLeft: Radius.circular(22),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: StreamBuilder(
+          stream:
+              FirebaseFirestore.instance.collection("cluestype").snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              return ListView(
+                children: snapshot.data!.docs.map((document) {
+                  return Container(
+                    margin: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: AppColor.nBlueLite.withOpacity(0.2),
+                    ),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: Text(
+                            "คดีความผิดตาม" + document["laws"],
+                            style: const TextStyle(color: AppColor.nWhite),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }).toList(),
+              );
+            }
+          },
+        ),
+      ),
+    );
+  }
+
   Container point(BuildContext context, Map<String, dynamic> doc) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.8,
-      height: 410,
+      height: 405,
       decoration: BoxDecoration(
         color: AppColor.nWhite,
         borderRadius: BorderRadius.circular(22),
@@ -511,30 +521,19 @@ class _DetailsPageState extends State<DetailsPage> {
         style: TextButton.styleFrom(
           elevation: 5,
           foregroundColor: Colors.white,
-          backgroundColor: AppColor.kNavy,
+          backgroundColor: AppColor.nBlue,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(12))),
         ),
         onPressed: () {
-          var snackBar = const SnackBar(content: Text('บันทึก การแก้ไขเรียบร้อยแล้ว'));
+          var snackBar =
+              const SnackBar(content: Text('บันทึก การแก้ไขเรียบร้อยแล้ว'));
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
           update();
         },
         child: const Text('บันทึก'),
       ),
     );
-  }
-
-  void showToastMessage(String message) {
-    Fluttertoast.showToast(
-        msg: message, //message to show toast
-        toastLength: Toast.LENGTH_LONG, //duration for message to show
-        gravity: ToastGravity.CENTER, //where you want to show, top, bottom
-        timeInSecForIosWeb: 1, //for iOS only
-        //backgroundColor: Colors.red, //background Color for message
-        textColor: Colors.white, //message text color
-        fontSize: 16.0 //message font size
-        );
   }
 
   Future<void> update() async {

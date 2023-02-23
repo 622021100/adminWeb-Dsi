@@ -47,4 +47,5 @@ class AppColor {
   static const nBlueLite = Color(0xFFE3F2FD);
   static const nGrey = Color(0xFFF0F4F6);
   static const nGreyLite = Color(0xFFDEE1EC);
+  static const nCream = Color(0xFFFCFFE7);
 }

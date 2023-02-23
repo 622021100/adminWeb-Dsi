@@ -92,7 +92,7 @@ class _LandingPageState extends State<LandingPage> {
                     height: 150,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('assets/images/444444.png'),
+                          image: AssetImage('assets/images/dec2.png'),
                           fit: BoxFit.cover),
                     ),
                   ),

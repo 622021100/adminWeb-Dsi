@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:web_admin/componants/app_colors.dart';
 import 'package:web_admin/widgets/header/header_widgets.dart';
@@ -39,17 +38,24 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                  flex: 2,
-                  child: Container(
-                    margin: const EdgeInsets.only(right: 15),
-                    decoration: BoxDecoration(
-                        color: AppColor.kBlue,
-                        borderRadius: BorderRadius.circular(22)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [Text('Box 1')],
-                    ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 15),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'assets/images/dec4.png',
+                                scale: 2.5,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Expanded(
@@ -62,21 +68,21 @@ class HomePage extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: const [
                                 Text(
                                   'ส่วนวิเคราะห์ข้อมูลอาชญากรรมและการข่าว',
                                   style: TextStyle(
                                       color: AppColor.nBlack,
-                                      fontSize: 18,
+                                      fontSize: 26,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
                                   'กองเทคโนโลยีและศูนย์ข้อมูลการตรวจสอบ',
                                   style: TextStyle(
                                     color: AppColor.nBlack,
-                                    fontSize: 16,
+                                    fontSize: 22,
                                   ),
                                 ),
                               ],
@@ -85,21 +91,6 @@ class HomePage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Expanded(
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [Text('Box 3')]),
-                          ),
-                        ],
-                      ),
-                    )
                   ],
                 ))
               ],

@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:web_admin/componants/app_colors.dart';
-import 'package:web_admin/componants/constant.dart';
 
 class HeaderWidgets extends StatefulWidget {
   const HeaderWidgets({super.key});
@@ -12,7 +11,6 @@ class HeaderWidgets extends StatefulWidget {
 }
 
 class _HeaderWidgetsState extends State<HeaderWidgets> {
-  bool _folded = true;
   final auth = FirebaseAuth.instance;
 
   @override
@@ -85,7 +83,7 @@ class _HeaderWidgetsState extends State<HeaderWidgets> {
                 Expanded(
                     child: Row(
                   children: [
-                    Image.asset('assets/images/555555.png'),
+                    Image.asset('assets/images/dec3.png'),
                   ],
                 )),
               ],

@@ -116,14 +116,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
-  Image imageTop2() {
-    return Image.asset(
-      "assets/images/nameapp.png",
-      scale: 12,
-    );
-  }
-
+  
   Image imageTop1() {
     return Image.asset(
       "assets/images/B.png",
