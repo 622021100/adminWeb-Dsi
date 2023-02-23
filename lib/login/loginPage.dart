@@ -73,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                         children: <Widget>[
                           imageTop1(),
                           const SizedBox(
-                            height: 12,
+                            height: 25,
                           ),
                           textHeader1(),
                           textHeader2(),
@@ -177,112 +177,124 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextFormField(
-                validator: MultiValidator([
-                  RequiredValidator(errorText: "กรุณากรอกข้อมูลให้ครบ"),
-                  EmailValidator(errorText: "รูปแบบอีเมลไม่ถูกต้อง")
-                ]),
-                keyboardType: TextInputType.emailAddress,
-                onSaved: (String? email) {
-                  profile.email = email!;
-                },
-                decoration: InputDecoration(
-                  filled: true,
-                  enabled: true,
-                  fillColor: AppColor.nBlueLite,
-                  prefixIcon: const Icon(
-                    Icons.person_rounded,
-                    color: Colors.grey,
-                  ),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(36),
-                      borderSide: BorderSide.none),
-                  hintText: 'อีเมล',
-                ),
-              ),
+              username(),
               const SizedBox(
                 height: 12,
               ),
-              TextFormField(
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "กรุณากรอกข้อมูลให้ครบ";
-                  }
-                  if (value.length < 6 || value.length > 6) {
-                    return "รหัสผ่านไม่ถูกต้อง";
-                  }
-                },
-                obscureText: _obscureText,
-                onSaved: (String? password) {
-                  profile.password = password!;
-                },
-                decoration: InputDecoration(
-                  filled: true,
-                  enabled: true,
-                  fillColor: kAppbar,
-                  prefixIcon: const Icon(
-                    Icons.lock_rounded,
-                    color: Colors.grey,
-                  ),
-                  suffixIcon: IconButton(
-                      onPressed: _toggle,
-                      icon: Icon(
-                        _obscureText
-                            ? Icons.visibility_rounded
-                            : Icons.visibility_off_rounded,
-                        color: Colors.grey,
-                      )),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(36),
-                      borderSide: BorderSide.none),
-                  hintText: 'รหัสผ่าน',
-                ),
-              ),
+              password(),
               const SizedBox(
-                height: 20,
+                height: 25,
               ),
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColor.nBlue,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(36)),
-                  ),
-                  onPressed: () async {
-                    if (formKey.currentState!.validate()) {
-                      formKey.currentState!.save();
-                      try {
-                        await FirebaseAuth.instance
-                            .signInWithEmailAndPassword(
-                                email: profile.email,
-                                password: profile.password)
-                            .then((value) {
-                          formKey.currentState?.reset();
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) {
-                            return const MainHome();
-                          }));
-                        });
-                      } on FirebaseAuthException catch (e) {
-                        Fluttertoast.showToast(
-                            textColor: AppColor.nBlue,
-                            msg: e.message!,
-                            gravity: ToastGravity.CENTER);
-                      }
-                    }
-                  },
-                  child: const Text(
-                    'เข้าสู่ระบบ',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-              )
+              loginButton()
             ],
           ),
         ),
       ),
     );
+  }
+
+  TextFormField password() {
+    return TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return "กรุณากรอกข้อมูลให้ครบ";
+                }
+                if (value.length < 6 || value.length > 6) {
+                  return "ตรวจสอบรหัสผ่านอีกครั้ง";
+                }
+              },
+              obscureText: _obscureText,
+              onSaved: (String? password) {
+                profile.password = password!;
+              },
+              decoration: InputDecoration(
+                filled: true,
+                enabled: true,
+                fillColor: kAppbar,
+                prefixIcon: const Icon(
+                  Icons.lock_rounded,
+                  color: Colors.grey,
+                ),
+                suffixIcon: IconButton(
+                    onPressed: _toggle,
+                    icon: Icon(
+                      _obscureText
+                          ? Icons.visibility_rounded
+                          : Icons.visibility_off_rounded,
+                      color: Colors.grey,
+                    )),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(36),
+                    borderSide: BorderSide.none),
+                hintText: 'รหัสผ่าน',
+              ),
+            );
+  }
+
+  TextFormField username() {
+    return TextFormField(
+              validator: MultiValidator([
+                RequiredValidator(errorText: "กรุณากรอกข้อมูลให้ครบ"),
+                EmailValidator(errorText: "รูปแบบอีเมลไม่ถูกต้อง")
+              ]),
+              keyboardType: TextInputType.emailAddress,
+              onSaved: (String? email) {
+                profile.email = email!;
+              },
+              decoration: InputDecoration(
+                filled: true,
+                enabled: true,
+                fillColor: AppColor.nBlueLite,
+                prefixIcon: const Icon(
+                  Icons.person_rounded,
+                  color: Colors.grey,
+                ),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(36),
+                    borderSide: BorderSide.none),
+                hintText: 'อีเมล',
+              ),
+            );
+  }
+
+  SizedBox loginButton() {
+    return SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColor.nBlue,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(36)),
+                ),
+                onPressed: () async {
+                  if (formKey.currentState!.validate()) {
+                    formKey.currentState!.save();
+                    try {
+                      await FirebaseAuth.instance
+                          .signInWithEmailAndPassword(
+                              email: profile.email,
+                              password: profile.password)
+                          .then((value) {
+                        formKey.currentState?.reset();
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const MainHome();
+                        }));
+                      });
+                    } on FirebaseAuthException catch (e) {
+                      Fluttertoast.showToast(
+                          textColor: AppColor.nBlue,
+                          msg: e.message!,
+                          gravity: ToastGravity.CENTER);
+                    }
+                  }
+                },
+                child: const Text(
+                  'เข้าสู่ระบบ',
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+            );
   }
 }

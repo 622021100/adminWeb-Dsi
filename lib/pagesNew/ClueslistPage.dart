@@ -1,9 +1,13 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 import 'dart:html';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:web_admin/componants/app_colors.dart';
+import 'package:web_admin/modelDB/cluesdataModel.dart';
+import 'package:web_admin/modelDB/cluestypeModel.dart';
 import 'package:web_admin/pagesNew/CluesdetailPage.dart';
 import 'package:web_admin/widgets/header/header_widgets1.dart';
 
@@ -15,11 +19,30 @@ class Clueslistdata extends StatefulWidget {
 }
 
 class _ClueslistdataState extends State<Clueslistdata> {
+  Future<void> _copyToClipboardTypes() async {
+    await Clipboard.setData(ClipboardData(text: _cluestypes.text));
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text('คัดลอก'),
+    ));
+  }
+
+  cluestype types = cluestype(laws: '');
+
+  final _formKey = GlobalKey<FormState>();
+
+  final TextEditingController _cluestypes = TextEditingController();
+
+  final Future<FirebaseApp> firebase = Firebase.initializeApp();
+
+  CollectionReference clues =
+      FirebaseFirestore.instance.collection('cluestype');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.nWhite,
       body: SafeArea(
+        key: _formKey,
         child: Row(
           children: [
             Expanded(child: mainData()),
@@ -189,9 +212,10 @@ class _ClueslistdataState extends State<Clueslistdata> {
                                               ),
                                               child: Column(
                                                 children: [
+                                                  // cluestypes(context)
                                                   ListTile(
                                                     title: Text(
-                                                      "คดีความผิดตาม" +
+                                                      "ความผิดเกี่ยวกับ" +
                                                           document["laws"],
                                                     ),
                                                   ),
@@ -216,6 +240,25 @@ class _ClueslistdataState extends State<Clueslistdata> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Padding cluestypes(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 5),
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.8,
+        child: TextField(
+          controller: _cluestypes,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            icon: IconButton(
+              onPressed: _copyToClipboardTypes,
+              icon: const FaIcon(FontAwesomeIcons.copy),
+            ),
+          ),
+        ),
       ),
     );
   }

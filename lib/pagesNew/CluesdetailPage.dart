@@ -4,11 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:web_admin/componants/app_colors.dart';
 
 import '../modelDB/cluesdataModel.dart';
-
 
 class DetailsPage extends StatefulWidget {
   const DetailsPage({super.key, this.id});
@@ -50,10 +50,10 @@ class _DetailsPageState extends State<DetailsPage> {
     Time: '',
   );
   final _editFormKey = GlobalKey<FormState>();
-  final TextEditingController _note = TextEditingController();
   final TextEditingController _type = TextEditingController();
   final TextEditingController _location = TextEditingController();
   final TextEditingController _address = TextEditingController();
+  
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
   CollectionReference clues =
@@ -142,7 +142,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                 children: [
                                   header(),
                                   Container(
-                                    margin: const EdgeInsets.only(top: 10),
+                                    margin: const EdgeInsets.only(top: 20),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
@@ -163,7 +163,13 @@ class _DetailsPageState extends State<DetailsPage> {
                                                 ),
                                               ),
                                               const SizedBox(height: 10),
-                                              typeFeild(),
+                                              Row(
+                                                children: [
+                                                  typeFeild(),
+                                                  const SizedBox(width: 5),
+                                                  save(),
+                                                ],
+                                              ),
                                               const SizedBox(height: 10),
                                               Row(
                                                 children: [
@@ -184,7 +190,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                                   ),
                                                   const Spacer(),
                                                   Text(
-                                                      '${'เมื่อวันที่ :' + doc['Date']} เวลา : ' +
+                                                      '${'วันที่พบเบาะแส : ' + doc['Date']}  เวลา : ' +
                                                           doc['Time'])
                                                 ],
                                               ),
@@ -248,10 +254,6 @@ class _DetailsPageState extends State<DetailsPage> {
                                                 height: 15,
                                               ),
                                               point(context, doc),
-                                              const SizedBox(
-                                                height: 25,
-                                              ),
-                                              save()
                                             ],
                                           ),
                                         )
@@ -279,47 +281,10 @@ class _DetailsPageState extends State<DetailsPage> {
     );
   }
 
-  Container comment(BuildContext context, Map<String, dynamic> doc) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.8,
-      height: 175,
-      decoration: BoxDecoration(
-        color: AppColor.nWhite,
-        borderRadius: BorderRadius.circular(22),
-      ),
-      child: Container(
-        margin: const EdgeInsets.all(25),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'การพิจารณาเบื้องต้น',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const Divider(),
-            const SizedBox(
-              height: 10,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.8,
-              child: TextFormField(
-                controller: _type,
-                decoration: const InputDecoration(
-                    hintText: 'คอมเมนต์ที่นี่...', border: InputBorder.none),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
   Container point(BuildContext context, Map<String, dynamic> doc) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.8,
-      height: 330,
+      height: 410,
       decoration: BoxDecoration(
         color: AppColor.nWhite,
         borderRadius: BorderRadius.circular(22),
@@ -409,7 +374,7 @@ class _DetailsPageState extends State<DetailsPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Padding(
-              padding: EdgeInsets.only(left: 15, bottom: 5),
+              padding: EdgeInsets.only(left: 15, bottom: 3),
               child: Text(
                 '*คัดลอกละติจูดและลองติจูด เพื่อนำไปค้นหาใน Google Map',
                 style: TextStyle(
@@ -540,17 +505,19 @@ class _DetailsPageState extends State<DetailsPage> {
 
   Widget save() {
     return SizedBox(
-      height: 50,
-      width: MediaQuery.of(context).size.width * 0.8,
+      height: 55,
+      width: 100,
       child: TextButton(
         style: TextButton.styleFrom(
           elevation: 5,
           foregroundColor: Colors.white,
           backgroundColor: AppColor.kNavy,
           shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(32))),
+              borderRadius: BorderRadius.all(Radius.circular(12))),
         ),
         onPressed: () {
+          var snackBar = const SnackBar(content: Text('บันทึก การแก้ไขเรียบร้อยแล้ว'));
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
           update();
         },
         child: const Text('บันทึก'),
@@ -558,20 +525,32 @@ class _DetailsPageState extends State<DetailsPage> {
     );
   }
 
+  void showToastMessage(String message) {
+    Fluttertoast.showToast(
+        msg: message, //message to show toast
+        toastLength: Toast.LENGTH_LONG, //duration for message to show
+        gravity: ToastGravity.CENTER, //where you want to show, top, bottom
+        timeInSecForIosWeb: 1, //for iOS only
+        //backgroundColor: Colors.red, //background Color for message
+        textColor: Colors.white, //message text color
+        fontSize: 16.0 //message font size
+        );
+  }
+
   Future<void> update() async {
     return FirebaseFirestore.instance
         .collection('cluesdata')
         .doc(widget.id)
         .update({
-          'Type': _type.text,
-        })
-        .then((value) => Navigator.pop(context))
+      'Type': _type.text,
+    })
+        // .then((value) => Navigator.pop(context))
         .catchError((error) => print("Failed to update user: $error"));
   }
 
   SizedBox typeFeild() {
     return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.8,
+      width: MediaQuery.of(context).size.width * 0.3,
       child: TextFormField(
         controller: _type,
         decoration: InputDecoration(
@@ -584,7 +563,7 @@ class _DetailsPageState extends State<DetailsPage> {
           filled: true,
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: AppColor.nBlue,
               width: 1.0,
             ),

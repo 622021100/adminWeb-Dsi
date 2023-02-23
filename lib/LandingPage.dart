@@ -117,8 +117,6 @@ class _LandingPageState extends State<LandingPage> {
               children: const [
                 HomePage(),
                 Clueslistdata(),
-                // SettingsPage(),
-                // HelpPage(),
               ],
             ),
           )

@@ -40,8 +40,8 @@ class _MyAppState extends State<MyApp> {
       title: 'Admin | BohsaeKhaw',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: GoogleFonts.prompt().fontFamily),
-      // home: const MainHome(),
-      home: const LoginPage(),
+      home: const MainHome(),
+      // home: const LoginPage(),
     );
   }
 }

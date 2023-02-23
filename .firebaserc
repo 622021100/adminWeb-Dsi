@@ -1,7 +1,7 @@
 {
   "projects": {
-    "maincluesnew": "maincluesnew",
-    "default": "maincluesnew"
+    "default": "maincluesnew",
+    "maincluesnew": "maincluesnew"
   },
   "targets": {},
   "etags": {}
