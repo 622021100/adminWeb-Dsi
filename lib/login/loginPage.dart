@@ -6,6 +6,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:web_admin/componants/app_colors.dart';
 import 'package:web_admin/login/profileModel.dart';
 import 'package:web_admin/mainHome.dart';
+import 'package:web_admin/pagesNew/ListdataPage.dart';
 
 import '../componants/constant.dart';
 
@@ -272,7 +273,7 @@ class _LoginPageState extends State<LoginPage> {
                         formKey.currentState?.reset();
                         Navigator.pushReplacement(context,
                             MaterialPageRoute(builder: (context) {
-                          return const MainHome();
+                          return const ListdataPage();
                         }));
                       });
                     } on FirebaseAuthException catch (e) {

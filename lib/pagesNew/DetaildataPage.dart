@@ -386,7 +386,7 @@ class _DetailsPageState extends State<DetailsPage> {
             const Padding(
               padding: EdgeInsets.only(left: 15, bottom: 3),
               child: Text(
-                '*คัดลอกละติจูดและลองติจูด เพื่อนำไปค้นหาใน Google Map',
+                '*คัดลอกละติจูดและลองจิจูด เพื่อนำไปค้นหาใน Google Map',
                 style: TextStyle(
                   color: AppColor.kRed,
                 ),

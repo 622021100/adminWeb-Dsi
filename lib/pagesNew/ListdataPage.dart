@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings
-import 'dart:html';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -8,15 +6,16 @@ import 'package:web_admin/componants/app_colors.dart';
 import 'package:web_admin/modelDB/cluestypeModel.dart';
 import 'package:web_admin/pagesNew/DetaildataPage.dart';
 import 'package:web_admin/widgets/header/header_widgets1.dart';
+import 'package:web_admin/widgets/logoutButton_widget.dart';
 
-class Clueslistdata extends StatefulWidget {
-  const Clueslistdata({Key? key}) : super(key: key);
+class ListdataPage extends StatefulWidget {
+  const ListdataPage({super.key});
 
   @override
-  State<Clueslistdata> createState() => _ClueslistdataState();
+  State<ListdataPage> createState() => _ListdataPageState();
 }
 
-class _ClueslistdataState extends State<Clueslistdata> {
+class _ListdataPageState extends State<ListdataPage> {
   cluestype types = cluestype(laws: '');
 
   final _formKey = GlobalKey<FormState>();
@@ -31,15 +30,38 @@ class _ClueslistdataState extends State<Clueslistdata> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.nWhite,
       body: SafeArea(
-        key: _formKey,
-        child: Row(
-          children: [
-            Expanded(child: mainData()),
-          ],
-        ),
-      ),
+          child: Column(
+        children: [
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(
+                color: AppColor.nBlue,
+              ),
+              child: Container(
+                margin: const EdgeInsets.all(20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/A.png',
+                      scale: 10,
+                      fit: BoxFit.fill,
+                    ),
+                    const Spacer(),
+                    LogoutButton()
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 9,
+            child: mainData(),
+          ),
+        ],
+      )),
     );
   }
 
@@ -122,7 +144,7 @@ class _ClueslistdataState extends State<Clueslistdata> {
                                             child: Material(
                                               borderRadius:
                                                   BorderRadius.circular(22),
-                                              color: AppColor.nBlue.withOpacity(0.1),
+                                              color: AppColor.nBlueLite,
                                               child: InkWell(
                                                 highlightColor: AppColor.nBlack
                                                     .withOpacity(0.2),

@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:web_admin/Routes.dart';
 import 'package:web_admin/login/loginPage.dart';
 import 'package:web_admin/mainHome.dart';
+import 'package:web_admin/pagesNew/ListdataPage.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,9 +42,11 @@ class _MyAppState extends State<MyApp> {
         title: 'Admin | BohsaeKhaw',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(fontFamily: GoogleFonts.prompt().fontFamily),
-        initialRoute: "/",
-        routes: {
-          '/': (context) => const LoginPage(),
-        });
+        // initialRoute: "/",
+        // routes: {
+        //   '/': (context) => const LoginPage(),
+        // }
+        home: const LoginPage(),
+        );
   }
 }
