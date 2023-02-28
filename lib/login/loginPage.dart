@@ -5,7 +5,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:web_admin/componants/app_colors.dart';
 import 'package:web_admin/login/profileModel.dart';
-import 'package:web_admin/mainHome.dart';
 import 'package:web_admin/pagesNew/ListdataPage.dart';
 
 import '../componants/constant.dart';
@@ -50,9 +49,10 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
+        decoration:  const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/1.png"),
+            scale: 1,
             fit: BoxFit.cover,
           ),
         ),

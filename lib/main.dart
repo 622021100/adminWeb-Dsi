@@ -3,9 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:web_admin/Routes.dart';
 import 'package:web_admin/login/loginPage.dart';
-import 'package:web_admin/mainHome.dart';
 import 'package:web_admin/pagesNew/ListdataPage.dart';
 
 Future main() async {
@@ -39,14 +37,11 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Admin | BohsaeKhaw',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(fontFamily: GoogleFonts.prompt().fontFamily),
-        // initialRoute: "/",
-        // routes: {
-        //   '/': (context) => const LoginPage(),
-        // }
-        home: const LoginPage(),
-        );
+      title: 'Admin | News Clues',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(fontFamily: GoogleFonts.prompt().fontFamily),
+      home: const LoginPage(),
+      // home: const ListdataPage(),
+    );
   }
 }

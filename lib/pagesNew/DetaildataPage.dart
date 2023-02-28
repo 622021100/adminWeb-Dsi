@@ -1,13 +1,12 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 import 'dart:html' as html;
+import 'dart:html';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:web_admin/componants/app_colors.dart';
-
 import '../modelDB/cluesdataModel.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -96,15 +95,15 @@ class _DetailsPageState extends State<DetailsPage> {
                             child: Container(
                               margin: const EdgeInsets.symmetric(
                                 horizontal: 25,
-                                vertical: 20,
+                                vertical: 15,
                               ),
                               //เริ่มต้น รายละเอียด
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  header(),
+                                  header(context, doc),
                                   Container(
-                                    margin: const EdgeInsets.only(top: 15),
+                                    margin: const EdgeInsets.only(top: 30),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
@@ -177,30 +176,47 @@ class _DetailsPageState extends State<DetailsPage> {
                                                           FontWeight.bold,
                                                     ),
                                                   ),
+                                                  Spacer(),
+                                                  Text(
+                                                    '*คัดลอกตำแหน่ง เพื่อนำไปค้นหาใน Google Map',
+                                                    style: TextStyle(
+                                                      color: AppColor.kRed,
+                                                    ),
+                                                  )
                                                 ],
                                               ),
                                               const SizedBox(height: 10),
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.8,
-                                                decoration: BoxDecoration(
-                                                  color: AppColor.nWhite,
-                                                  borderRadius:
-                                                      BorderRadius.circular(22),
-                                                ),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    address(context),
-                                                    const Divider(),
-                                                    location(context),
-                                                  ],
-                                                ),
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.3,
+                                                    decoration: BoxDecoration(
+                                                      color: AppColor.nWhite,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              22),
+                                                    ),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        address(context),
+                                                        const Divider(),
+                                                        location(context),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  const Spacer(),
+                                                  mapButton()
+                                                ],
                                               )
                                             ],
                                           ),
@@ -239,6 +255,44 @@ class _DetailsPageState extends State<DetailsPage> {
                 ),
               );
             }),
+      ),
+    );
+  }
+
+  SizedBox mapButton() {
+    return SizedBox(
+      height: 130,
+      width: 100,
+      child: Material(
+        borderRadius: BorderRadius.circular(22),
+        color: AppColor.nOrange,
+        child: InkWell(
+          highlightColor: AppColor.nBlack.withOpacity(0.2),
+          splashColor: AppColor.nBlack.withOpacity(0.2),
+          borderRadius: BorderRadius.circular(22),
+          onTap: () {
+            html.window.open(
+                'https://www.google.co.th/maps/@18.3170581,99.3986862,17z?hl=th',
+                "_blank");
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              FaIcon(
+                FontAwesomeIcons.locationDot,
+                color: AppColor.nWhite,
+              ),
+              SizedBox(height: 5),
+              Text(
+                'Google Map',
+                style: TextStyle(
+                  color: AppColor.nWhite,
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -294,7 +348,7 @@ class _DetailsPageState extends State<DetailsPage> {
   Container point(BuildContext context, Map<String, dynamic> doc) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.8,
-      height: 405,
+      height: 370,
       decoration: BoxDecoration(
         color: AppColor.nWhite,
         borderRadius: BorderRadius.circular(22),
@@ -377,71 +431,36 @@ class _DetailsPageState extends State<DetailsPage> {
     );
   }
 
-  Row location(BuildContext context) {
-    return Row(
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(left: 15, bottom: 3),
-              child: Text(
-                '*คัดลอกละติจูดและลองจิจูด เพื่อนำไปค้นหาใน Google Map',
-                style: TextStyle(
-                  color: AppColor.kRed,
-                ),
-              ),
+  Padding location(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 15,
+        right: 15,
+        bottom: 10,
+      ),
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.8,
+        child: TextField(
+          controller: _location,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            icon: IconButton(
+              onPressed: _copyToClipboardLocation,
+              icon: const FaIcon(FontAwesomeIcons.copy),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.2,
-                child: TextField(
-                  controller: _location,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    icon: IconButton(
-                      onPressed: _copyToClipboardLocation,
-                      icon: const FaIcon(FontAwesomeIcons.copy),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-        const Spacer(),
-        // const SizedBox(width: 20),
-        Container(
-          margin: const EdgeInsets.only(right: 15, bottom: 10),
-          child: Column(
-            children: [
-              IconButton(
-                onPressed: () {
-                  html.window.open(
-                      'https://www.google.co.th/maps/@18.3170581,99.3986862,17z?hl=th',
-                      "_blank");
-                },
-                splashRadius: 22,
-                iconSize: 50,
-                icon: const Image(
-                  image: AssetImage('assets/images/map.png'),
-                ),
-              ),
-              const Text(
-                'Google Map',
-                style: TextStyle(fontSize: 10),
-              )
-            ],
           ),
         ),
-      ],
+      ),
     );
   }
 
   Padding address(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 5),
+      padding: const EdgeInsets.only(
+        top: 10,
+        left: 15,
+        right: 15,
+      ),
       child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.8,
         child: TextField(
@@ -483,7 +502,7 @@ class _DetailsPageState extends State<DetailsPage> {
         ));
   }
 
-  Row header() {
+  Row header(BuildContext context, Map<String, dynamic> doc) {
     return Row(
       children: [
         const FaIcon(FontAwesomeIcons.solidFolderOpen),
@@ -498,6 +517,74 @@ class _DetailsPageState extends State<DetailsPage> {
           ),
         ),
         const Spacer(),
+        TextButton(
+           style: TextButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(32))),
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (context) => Dialog(
+                        child: SizedBox(
+                          height: 1000,
+                          width: 500,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: Padding(
+                              padding: const EdgeInsets.all(35),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'ความผิดเกี่ยวกับ' + doc['Type'],
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text('ผู้แจ้งเบาะแส ' +
+                                      doc['Name'] +
+                                      '(' +
+                                      doc['Phone'] +
+                                      ')'),
+                                  Text('พบเบาะแสเมื่อเวลา ' +
+                                      doc['Time'] +
+                                      ' ของวันที่ ' +
+                                      doc['Date']),
+                                  Text('บริเวณ' +
+                                      doc['Address'] +
+                                      '(' +
+                                      doc['Location'] +
+                                      ')'),
+                                  Text('โดยมีรายละเอียด ดังนี้' +
+                                      doc['Detaill']),
+                                  Text(
+                                      'และมีความประสงค์ให้ทางกรมสอบสวนคดีพิเศษเข้าช่วยเหลือ คือ' +
+                                          doc['Point'])
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                  // AlertDialog(
+                  //   title: const Text('รายละเอียด'),
+                  //   insetPadding: const EdgeInsets.symmetric(
+                  //       vertical: 100, horizontal: 100),
+                  //   content: Column(
+                  //     children: [Text(doc['Type']), Text(doc['Detaill'])],
+                  //   ),
+                  //   actions: [
+                  //     TextButton(
+                  //         onPressed: () => Navigator.pop(context),
+                  //         child: const Text('ตกลง'))
+                  //   ],
+                  // ),
+                  );
+            },
+            child: const Text(
+              'ดูในรูปแบบเอกสาร',
+              style: TextStyle(decoration: TextDecoration.underline),
+            )),
         cancel()
       ],
     );
