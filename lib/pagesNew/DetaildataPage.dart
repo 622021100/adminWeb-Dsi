@@ -24,18 +24,31 @@ class _DetailsPageState extends State<DetailsPage> {
   Future<void> _copyToClipboardLocation() async {
     await Clipboard.setData(ClipboardData(text: _location.text));
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text('คัดลอก'),
+      content: Text('คัดลอก หมายเลขลองจิจูดและละติจูด สำเร็จ'),
     ));
   }
 
   Future<void> _copyToClipboardAddress() async {
     await Clipboard.setData(ClipboardData(text: _address.text));
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text('คัดลอก'),
+      content: Text('คัดลอก สถานที่พบเบาะแส สำเร็จ'),
     ));
   }
 
-  //
+  Future<void> _copyToClipboardDetails() async {
+    await Clipboard.setData(ClipboardData(text: _details.text));
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text('คัดลอก รายละเอียดข้อมูลเบาะแส สำเร็จ'),
+    ));
+  }
+
+  Future<void> _copyToClipboardPoint() async {
+    await Clipboard.setData(ClipboardData(text: _point.text));
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text('คัดลอก ความประสงค์ที่ต้องการให้ DSI ช่วยเหลือ สำเร็จ'),
+    ));
+  }
+
   //connect database Model file
   cluesdata cluess = cluesdata(
     Address: '',
@@ -52,6 +65,8 @@ class _DetailsPageState extends State<DetailsPage> {
   final TextEditingController _type = TextEditingController();
   final TextEditingController _location = TextEditingController();
   final TextEditingController _address = TextEditingController();
+  final TextEditingController _details = TextEditingController();
+  final TextEditingController _point = TextEditingController();
 
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
@@ -74,6 +89,9 @@ class _DetailsPageState extends State<DetailsPage> {
                 _type.text = doc["Type"];
                 _address.text = doc["Address"];
                 _location.text = doc["Location"];
+                _details.text = doc["Detaill"];
+                _point.text = doc["Point"];
+
                 return Center(
                   child: SizedBox(
                     height: MediaQuery.of(context).size.height * 0.9,
@@ -359,16 +377,29 @@ class _DetailsPageState extends State<DetailsPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'ความประสงค์ที่ต้องการให้ DSi ช่วย',
+              'ความประสงค์ที่ต้องการให้ช่วยเหลือ',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
             const Divider(),
-            const SizedBox(
-              height: 10,
+            TextField(
+              maxLines: 5,
+              controller: _point,
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+              ),
             ),
-            Text(doc['Point'])
+            const Spacer(),
+            Row(
+              children: [
+                const Spacer(),
+                IconButton(
+                  onPressed: _copyToClipboardPoint,
+                  icon: const FaIcon(FontAwesomeIcons.copy),
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -479,27 +510,39 @@ class _DetailsPageState extends State<DetailsPage> {
 
   Container details(BuildContext context, Map<String, dynamic> doc) {
     return Container(
-        width: MediaQuery.of(context).size.width * 0.8,
-        height: MediaQuery.of(context).size.height * 0.3,
-        decoration: BoxDecoration(
-          color: AppColor.nWhite,
-          borderRadius: BorderRadius.circular(22),
-        ),
-        child: Container(
-          margin: const EdgeInsets.all(15),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  doc["Detaill"],
-                  style: const TextStyle(fontSize: 16),
+      width: MediaQuery.of(context).size.width * 0.8,
+      height: MediaQuery.of(context).size.height * 0.3,
+      decoration: BoxDecoration(
+        color: AppColor.nWhite,
+        borderRadius: BorderRadius.circular(22),
+      ),
+      child: Container(
+        margin: const EdgeInsets.all(15),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: [
+              TextField(
+                controller: _details,
+                maxLines: 6,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
                 ),
-              ],
-            ),
+              ),
+              Row(
+                children: [
+                  const Spacer(),
+                  IconButton(
+                    onPressed: _copyToClipboardDetails,
+                    icon: const FaIcon(FontAwesomeIcons.copy),
+                  ),
+                ],
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   Row header(BuildContext context, Map<String, dynamic> doc) {
@@ -517,77 +560,81 @@ class _DetailsPageState extends State<DetailsPage> {
           ),
         ),
         const Spacer(),
-        TextButton(
-           style: TextButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(32))),
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (context) => Dialog(
-                        child: SizedBox(
-                          height: 1000,
-                          width: 500,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: Padding(
-                              padding: const EdgeInsets.all(35),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'ความผิดเกี่ยวกับ' + doc['Type'],
-                                    style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text('ผู้แจ้งเบาะแส ' +
-                                      doc['Name'] +
-                                      '(' +
-                                      doc['Phone'] +
-                                      ')'),
-                                  Text('พบเบาะแสเมื่อเวลา ' +
-                                      doc['Time'] +
-                                      ' ของวันที่ ' +
-                                      doc['Date']),
-                                  Text('บริเวณ' +
-                                      doc['Address'] +
-                                      '(' +
-                                      doc['Location'] +
-                                      ')'),
-                                  Text('โดยมีรายละเอียด ดังนี้' +
-                                      doc['Detaill']),
-                                  Text(
-                                      'และมีความประสงค์ให้ทางกรมสอบสวนคดีพิเศษเข้าช่วยเหลือ คือ' +
-                                          doc['Point'])
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
-                  // AlertDialog(
-                  //   title: const Text('รายละเอียด'),
-                  //   insetPadding: const EdgeInsets.symmetric(
-                  //       vertical: 100, horizontal: 100),
-                  //   content: Column(
-                  //     children: [Text(doc['Type']), Text(doc['Detaill'])],
-                  //   ),
-                  //   actions: [
-                  //     TextButton(
-                  //         onPressed: () => Navigator.pop(context),
-                  //         child: const Text('ตกลง'))
-                  //   ],
-                  // ),
-                  );
-            },
-            child: const Text(
-              'ดูในรูปแบบเอกสาร',
-              style: TextStyle(decoration: TextDecoration.underline),
-            )),
+        reportView(context, doc),
         cancel()
       ],
     );
+  }
+
+  TextButton reportView(BuildContext context, Map<String, dynamic> doc) {
+    return TextButton(
+        style: TextButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(32))),
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (context) => Dialog(
+                    child: SizedBox(
+                      height: 1000,
+                      width: 500,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Padding(
+                          padding: const EdgeInsets.all(35),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'ความผิดเกี่ยวกับ' + doc['Type'],
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                              Text('พบเบาะแสเมื่อเวลา ' +
+                                  doc['Time'] +
+                                  ' นาฬิกา' +
+                                  ' ของวันที่ ' +
+                                  doc['Date'] +
+                                  ' ณ บริเวณ ' +
+                                  doc['Address'] +
+                                  ' (' +
+                                  doc['Location'] +
+                                  ')' +
+                                  ' โดยมีรายละเอียด ดังนี้ คือ' +
+                                  doc['Detaill'] +
+                                  ' และมีความประสงค์ให้ทางกรมสอบสวนคดีพิเศษเข้าช่วยเหลือ คือ' +
+                                  doc['Point'] +
+                                  ' [ ผู้พบเบาะแส' +
+                                  doc['Name'] +
+                                  ' ' +
+                                  doc['Phone'] +
+                                  ']')
+                              // Text('พบเบาะแสเมื่อเวลา ' +
+                              //     doc['Time'] +
+                              //     ' นาฬิกา' +
+                              //     ' ของวันที่ ' +
+                              //     doc['Date']),
+                              // Text('บริเวณ ' +
+                              //     doc['Address'] +
+                              //     '(' +
+                              //     doc['Location'] +
+                              //     ')'),
+                              // Text('โดยมีรายละเอียด ดังนี้ คือ' +
+                              //     doc['Detaill']),
+                              // Text(
+                              //     'และมีความประสงค์ให้ทางกรมสอบสวนคดีพิเศษเข้าช่วยเหลือ คือ' +
+                              //         doc['Point'])
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ));
+        },
+        child: const Text(
+          'ดูในรูปแบบสรุปเป็นเอกสาร',
+          style: TextStyle(decoration: TextDecoration.underline),
+        ));
   }
 
   IconButton cancel() {
@@ -595,7 +642,7 @@ class _DetailsPageState extends State<DetailsPage> {
       onPressed: () {
         Navigator.pop(context);
       },
-      icon: const FaIcon(FontAwesomeIcons.xmark),
+      icon: const FaIcon(FontAwesomeIcons.solidCircleXmark),
       color: AppColor.kRed,
     );
   }

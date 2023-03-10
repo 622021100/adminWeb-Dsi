@@ -23,7 +23,7 @@ Future main() async {
     await Firebase.initializeApp();
   }
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -40,8 +40,8 @@ class _MyAppState extends State<MyApp> {
       title: 'Admin | News Clues',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: GoogleFonts.prompt().fontFamily),
-      home: const LoginPage(),
-      // home: const ListdataPage(),
+      // home: const LoginPage(),
+      home: const ListdataPage(),
     );
   }
 }

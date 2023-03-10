@@ -18,10 +18,10 @@ class _HeaderWidgets1State extends State<HeaderWidgets1> {
           children: [
             const FaIcon(FontAwesomeIcons.list),
             const SizedBox(
-              width: 5,
+              width: 10,
             ),
             const Text(
-              'Data list of clues',
+              'รายการข้อมูลการแจ้งเบาะแสทางการข่าว',
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,

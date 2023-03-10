@@ -16,12 +16,6 @@ class ListdataPage extends StatefulWidget {
 }
 
 class _ListdataPageState extends State<ListdataPage> {
-  cluestype types = cluestype(laws: '');
-
-  final _formKey = GlobalKey<FormState>();
-
-  final TextEditingController _cluestypes = TextEditingController();
-
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
   CollectionReference cluestypes =
@@ -96,37 +90,37 @@ class _ListdataPageState extends State<ListdataPage> {
                               flex: 2,
                               child: Column(
                                 children: [
-                                  Expanded(
-                                    child: Container(
-                                      margin: const EdgeInsets.only(top: 25),
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                        color: AppColor.nOrange,
-                                        borderRadius: BorderRadius.circular(22),
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            flex: 8,
-                                            child: Container(
-                                              margin: const EdgeInsets.only(
-                                                left: 20,
-                                              ),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: const [
-                                                  Text('รายการข้อมูลเบาะแส')
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
+                                  // Expanded(
+                                  //   child: Container(
+                                  //     margin: const EdgeInsets.only(top: 25),
+                                  //     width: double.infinity,
+                                  //     decoration: BoxDecoration(
+                                  //       color: AppColor.nOrange,
+                                  //       borderRadius: BorderRadius.circular(22),
+                                  //     ),
+                                  //     child: Row(
+                                  //       children: [
+                                  //         Expanded(
+                                  //           flex: 8,
+                                  //           child: Container(
+                                  //             margin: const EdgeInsets.only(
+                                  //               left: 20,
+                                  //             ),
+                                  //             child: Column(
+                                  //               mainAxisAlignment:
+                                  //                   MainAxisAlignment.center,
+                                  //               crossAxisAlignment:
+                                  //                   CrossAxisAlignment.start,
+                                  //               children: const [
+                                  //                 Text('รายการข้อมูลเบาะแส')
+                                  //               ],
+                                  //             ),
+                                  //           ),
+                                  //         ),
+                                  //       ],
+                                  //     ),
+                                  //   ),
+                                  // ),
                                   Expanded(
                                     flex: 7,
                                     child: Padding(
@@ -179,7 +173,7 @@ class _ListdataPageState extends State<ListdataPage> {
                               flex: 1,
                               child: Container(
                                 margin: const EdgeInsets.only(
-                                    left: 25, top: 25, bottom: 25),
+                                    left: 25, top: 20, bottom: 25),
                                 decoration: BoxDecoration(
                                     color: AppColor.nBlue,
                                     borderRadius: BorderRadius.circular(22)),
@@ -310,7 +304,7 @@ class _ListdataPageState extends State<ListdataPage> {
       width: 109,
       height: MediaQuery.of(context).size.height * 0.6,
       decoration: const BoxDecoration(
-        color: AppColor.kRed,
+        color: AppColor.nOrange,
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(22),
           bottomRight: Radius.circular(22),
@@ -338,7 +332,7 @@ class _ListdataPageState extends State<ListdataPage> {
                       Row(
                         children: [
                           const Text('คุณต้องการลบ '),
-                          Text(" ${document["Type"]} ใช่หรือไม่ ?",
+                          Text("ความผิดเกี่ยวกับ" + " ${document["Type"]} ใช่หรือไม่ ?",
                               style:
                                   const TextStyle(fontWeight: FontWeight.bold)),
                         ],
