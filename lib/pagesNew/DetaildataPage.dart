@@ -49,6 +49,20 @@ class _DetailsPageState extends State<DetailsPage> {
     ));
   }
 
+  Future<void> _copyToClipboardPhone() async {
+    await Clipboard.setData(ClipboardData(text: _phone.text));
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text('คัดลอก เบอร์โทรศัพท์ผู้แจ้งเบาะแส สำเร็จ'),
+    ));
+  }
+
+  Future<void> _copyToClipboardName() async {
+    await Clipboard.setData(ClipboardData(text: _phone.text));
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text('คัดลอก ชื่อผู้แจ้งเบาะแส สำเร็จ'),
+    ));
+  }
+
   //connect database Model file
   cluesdata cluess = cluesdata(
     Address: '',
@@ -67,6 +81,8 @@ class _DetailsPageState extends State<DetailsPage> {
   final TextEditingController _address = TextEditingController();
   final TextEditingController _details = TextEditingController();
   final TextEditingController _point = TextEditingController();
+  final TextEditingController _phone = TextEditingController();
+  final TextEditingController _name = TextEditingController();
 
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
@@ -91,7 +107,6 @@ class _DetailsPageState extends State<DetailsPage> {
                 _location.text = doc["Location"];
                 _details.text = doc["Detaill"];
                 _point.text = doc["Point"];
-
                 return Center(
                   child: SizedBox(
                     height: MediaQuery.of(context).size.height * 0.9,
@@ -384,6 +399,7 @@ class _DetailsPageState extends State<DetailsPage> {
             ),
             const Divider(),
             TextField(
+              readOnly: true,
               maxLines: 5,
               controller: _point,
               decoration: const InputDecoration(
@@ -472,6 +488,7 @@ class _DetailsPageState extends State<DetailsPage> {
       child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.8,
         child: TextField(
+          readOnly: true,
           controller: _location,
           decoration: InputDecoration(
             border: InputBorder.none,
@@ -495,6 +512,7 @@ class _DetailsPageState extends State<DetailsPage> {
       child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.8,
         child: TextField(
+          readOnly: true,
           controller: _address,
           decoration: InputDecoration(
             border: InputBorder.none,
@@ -523,6 +541,7 @@ class _DetailsPageState extends State<DetailsPage> {
           child: Column(
             children: [
               TextField(
+                readOnly: true,
                 controller: _details,
                 maxLines: 6,
                 decoration: const InputDecoration(
@@ -589,8 +608,28 @@ class _DetailsPageState extends State<DetailsPage> {
                                 'ความผิดเกี่ยวกับ' + doc['Type'],
                                 style: const TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
-                              ),
-                              Text('พบเบาะแสเมื่อเวลา ' +
+                              ), 
+                              // TextField(
+                              //   controller: _type,
+                              //   style: const TextStyle(
+                              //       fontWeight: FontWeight.bold, fontSize: 18),
+                              //   decoration: const InputDecoration(
+                              //     border: InputBorder.none,
+                              //   ),
+                              // ),
+                              // TextField(
+                              //   readOnly: true,
+                              //   controller: _point,
+                              //   maxLines: 6,
+                              //   decoration: const InputDecoration(
+                              //     border: InputBorder.none,
+                              //   ),
+                              // ),
+                              Text('ผู้พบเห็นเบาะแส ' +
+                                  doc['Name'] +
+                                  ' ' +
+                                  doc['Phone'] +
+                                  ' พบเบาะแสเมื่อเวลา ' +
                                   doc['Time'] +
                                   ' นาฬิกา' +
                                   ' ของวันที่ ' +
@@ -603,12 +642,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                   ' โดยมีรายละเอียด ดังนี้ คือ' +
                                   doc['Detaill'] +
                                   ' และมีความประสงค์ให้ทางกรมสอบสวนคดีพิเศษเข้าช่วยเหลือ คือ' +
-                                  doc['Point'] +
-                                  ' [ ผู้พบเบาะแส' +
-                                  doc['Name'] +
-                                  ' ' +
-                                  doc['Phone'] +
-                                  ']')
+                                  doc['Point'])
                               // Text('พบเบาะแสเมื่อเวลา ' +
                               //     doc['Time'] +
                               //     ' นาฬิกา' +

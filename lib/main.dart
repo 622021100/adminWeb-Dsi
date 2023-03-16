@@ -8,7 +8,7 @@ import 'package:web_admin/pagesNew/ListdataPage.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  //  await Firebase.initializeApp();
   if (kIsWeb) {
     await Firebase.initializeApp(
         options: const FirebaseOptions(
@@ -22,7 +22,6 @@ Future main() async {
   } else {
     await Firebase.initializeApp();
   }
-
   runApp(const MyApp());
 }
 
@@ -40,8 +39,8 @@ class _MyAppState extends State<MyApp> {
       title: 'Admin | News Clues',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: GoogleFonts.prompt().fontFamily),
-      // home: const LoginPage(),
-      home: const ListdataPage(),
+      home: const LoginPage(),
+      // home: const ListdataPage(),
     );
   }
 }

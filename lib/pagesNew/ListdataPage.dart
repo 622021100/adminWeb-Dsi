@@ -332,7 +332,7 @@ class _ListdataPageState extends State<ListdataPage> {
                       Row(
                         children: [
                           const Text('คุณต้องการลบ '),
-                          Text("ความผิดเกี่ยวกับ" + " ${document["Type"]} ใช่หรือไม่ ?",
+                          Text("ความผิดเกี่ยวกับ" + "${document["Type"]}ใช่หรือไม่ ?",
                               style:
                                   const TextStyle(fontWeight: FontWeight.bold)),
                         ],
